@@ -10,13 +10,26 @@
 <body>
     <h1>Movie Data Visualizations</h1>
 
-    <div id="charts-container">
-        <div id="pieChart" class="chart"></div>
+    <!-- Navigation Links -->
+    <div id="navigation">
+        <a href="#pieChart" onclick="showChart('pieChartDiv')">Pie Chart</a> |
+        <a href="#scatterPlot" onclick="showChart('scatterChart')">Scatter Plot</a>
     </div>
-    <div id="pieChartPercentage"></div>
 
+    <!-- Scatter Plot Container -->
+    <div id="scatterPlot" class="scatterPlot-container">
+        <div class="chart" id="scatterChart"></div>
+    </div>
+
+    <!-- Pie Chart Container -->
+    <div id="pieChart" class="pieChart-container">
+        <div class="chart" id="pieChartDiv"></div>
+        <div id="pieChartPercentage"></div>
+    </div>
+
+    <script src="scatterplot.js"></script>
     <script src="piechart.js"></script>
-
+    <script src="script.js"></script>
 </body>
 
 </html>

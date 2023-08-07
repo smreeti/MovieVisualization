@@ -1,6 +1,5 @@
-const csvUrl = 'https://raw.githubusercontent.com/smreeti/MovieVisualization/main/movies.csv';
 
-d3.csv(csvUrl).then((data) => {
+function createPieChart(data) {
     const width = 800;
     const height = 400;
     const radius = Math.min(width, height) / 2;
@@ -84,4 +83,4 @@ d3.csv(csvUrl).then((data) => {
         d3.selectAll(".pieDataLabel").remove();
         d3.select("#pieChartPercentage").style("display", "none");
     }
-});
+}

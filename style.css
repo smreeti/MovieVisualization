@@ -90,3 +90,8 @@
     font-size: 14px;
     display: none;
 }
+
+.axis-label {
+    font-size: 14px;
+    font-weight: bold;
+}
