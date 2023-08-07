@@ -33,6 +33,7 @@ function createPieChart(data) {
         .attr("fill", (d) => (color(d.data)))
         .attr("stroke", "white")
         .style("stroke-width", "2px")
+        .style("cursor", "pointer")
         .on("mouseover", handlePieMouseover)
         .on("mouseout", handlePieMouseout);
 
@@ -57,7 +58,8 @@ function createPieChart(data) {
         .attr("x", 30)
         .attr("y", 15)
         .text((d) => (d.data))
-        .attr("class", "legend-text");
+        .attr("class", "legend-text")
+        .style("cursor", "pointer");
 
     function handlePieMouseover(event, d) {
 

@@ -31,11 +31,11 @@ function showChart(chartType) {
             case 'pieChartDiv':
                 createPieChart(data);
                 break;
-            // Add more chart cases here
         }
     });
 }
 
+//to initially load piechart by default
 window.addEventListener('load', () => {
     showChart('pieChartDiv');
 });

@@ -8,23 +8,24 @@
 </head>
 
 <body>
-    <h1>Movie Data Visualizations</h1>
-
     <!-- Navigation Links -->
     <div id="navigation">
+        <h1>Movie Data Visualizations</h1>
         <a href="#pieChart" onclick="showChart('pieChartDiv')">Pie Chart</a> |
         <a href="#scatterPlot" onclick="showChart('scatterChart')">Scatter Plot</a>
     </div>
 
-    <!-- Scatter Plot Container -->
-    <div id="scatterPlot" class="scatterPlot-container">
-        <div class="chart" id="scatterChart"></div>
-    </div>
+    <div class="chart-container">
+        <!-- Scatter Plot Container -->
+        <div id="scatterPlot" class="scatterPlot-container">
+            <div class="chart" id="scatterChart"></div>
+        </div>
 
-    <!-- Pie Chart Container -->
-    <div id="pieChart" class="pieChart-container">
-        <div class="chart" id="pieChartDiv"></div>
-        <div id="pieChartPercentage"></div>
+        <!-- Pie Chart Container -->
+        <div id="pieChart" class="pieChart-container">
+            <div class="chart" id="pieChartDiv"></div>
+            <div id="pieChartPercentage"></div>
+        </div>
     </div>
 
     <script src="scatterplot.js"></script>

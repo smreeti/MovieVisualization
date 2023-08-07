@@ -1,3 +1,30 @@
+body {
+    margin: 0px !important;
+}
+
+#navigation {
+    background-color: #e3e3e3;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#navigation a {
+    color: #0202E3;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+#navigation a:hover {
+    color: #4D4000;
+}
+
+.chart-container {
+    text-align: center;
+}
+
 .chart {
     margin: 20px;
     cursor: pointer;
