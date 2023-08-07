@@ -111,6 +111,7 @@
                 .attr("cy", d => yScaleScatter(d.rating))
                 .attr("r", 5)
                 .attr("fill", "steelblue")
+                .style("cursor", "pointer")
                 .on("mouseover", handleScatterMouseover)
                 .on("mouseout", handleScatterMouseout);
 

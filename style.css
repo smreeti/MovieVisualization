@@ -35,3 +35,58 @@
     display: none;
     text-anchor: middle;
 }
+
+.chart {
+    margin: 20px;
+}
+
+.bar {
+    fill: steelblue;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.bar:hover {
+    fill: darkblue;
+    opacity: 1;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2;
+}
+
+.axis-x,
+.axis-y {
+    font-size: 12px;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.legend-box {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.legend:hover {
+    font-weight: bold;
+}
+
+.legend-text {
+    font-size: 14px;
+}
+
+#tooltip {
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    display: none;
+}
