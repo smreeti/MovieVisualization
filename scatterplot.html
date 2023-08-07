@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Movie Data Visualizations</title>
+    <style>
+        /* Add your desired styles here */
+        .chart {
+            margin: 20px;
+        }
+
+        .bar {
+            fill: steelblue;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .bar:hover {
+            fill: darkblue;
+            opacity: 1;
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 2;
+        }
+
+        .axis-x,
+        .axis-y {
+            font-size: 12px;
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend-box {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+        }
+
+        .legend:hover {
+            font-weight: bold;
+        }
+
+        .legend-text {
+            font-size: 14px;
+        }
+
+        #tooltip {
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <h1>Movie Data Visualizations</h1>
+    <div id="scatterPlot" class="chart"></div>
+
+    <script>
+        const csvUrl = 'https://raw.githubusercontent.com/smreeti/MovieVisualization/main/movies.csv';
+
+        d3.csv(csvUrl).then((data) => {
+            const scatterWidth = 800;
+            const scatterHeight = 400;
+            const scatterMargin = { top: 40, right: 30, bottom: 50, left: 60 };
+            const scatterInnerWidth = scatterWidth - scatterMargin.left - scatterMargin.right;
+            const scatterInnerHeight = scatterHeight - scatterMargin.top - scatterMargin.bottom;
+
+            const svgScatter = d3.select("#scatterPlot")
+                .append("svg")
+                .attr("width", scatterWidth)
+                .attr("height", scatterHeight)
+                .append("g")
+                .attr("transform", `translate(${scatterMargin.left}, ${scatterMargin.top})`);
+
+            const xScaleScatter = d3.scaleLinear()
+                .domain(d3.extent(data, d => d.releaseYear))
+                .range([0, scatterInnerWidth]);
+
+            const yScaleScatter = d3.scaleLinear()
+                .domain([0, d3.max(data, d => d.rating)])
+                .range([scatterInnerHeight, 0]);
+
+            const xAxisScatter = d3.axisBottom(xScaleScatter).ticks(10);
+            const yAxisScatter = d3.axisLeft(yScaleScatter);
+
+            svgScatter.append("g")
+                .attr("class", "axis-x")
+                .attr("transform", `translate(0, ${scatterInnerHeight})`)
+                .call(xAxisScatter);
+
+            svgScatter.append("g")
+                .attr("class", "axis-y")
+                .call(yAxisScatter);
+
+            svgScatter.selectAll("circle")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("cx", d => xScaleScatter(d.releaseYear))
+                .attr("cy", d => yScaleScatter(d.rating))
+                .attr("r", 5)
+                .attr("fill", "steelblue")
+                .on("mouseover", handleScatterMouseover)
+                .on("mouseout", handleScatterMouseout);
+
+            const tooltip = d3.select("body").append("div")
+                .attr("id", "tooltip");
+
+            function handleScatterMouseover(event, d) {
+                tooltip
+                    .style("left", event.pageX + "px")
+                    .style("top", event.pageY + "px")
+                    .style("display", "block")
+                    .html(`<strong>${d.title}</strong><br>Genre: ${d.genre}<br>Rating: ${d.rating}<br>Release Year: ${d.releaseYear}`);
+            }
+
+            function handleScatterMouseout(event, d) {
+                tooltip.style("display", "none");
+            }
+        })
+    </script>
+</body>
+
+</html>

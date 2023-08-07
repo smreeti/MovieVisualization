@@ -1,4 +1,4 @@
-const csvUrl = 'https://raw.githubusercontent.com/smreeti/MovieVisualization/main/convertcsv.csv';
+const csvUrl = 'https://raw.githubusercontent.com/smreeti/MovieVisualization/main/movies.csv';
 
 d3.csv(csvUrl).then((data) => {
     const width = 800;
