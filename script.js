@@ -1,41 +1,59 @@
-const csvUrl = 'https://raw.githubusercontent.com/smreeti/MovieVisualization/main/movies.csv';
+const csvUrl =
+  "https://raw.githubusercontent.com/smreeti/MovieVisualization/main/movies.csv";
+const csvJsonUrl =
+  "https://raw.githubusercontent.com/smreeti/MovieVisualization/main/movies.csv";
 
 const chartContainers = {
-    'scatterChart': document.getElementById('scatterPlot'),
-    'pieChartDiv': document.getElementById('pieChart'),
+  scatterChart: document.getElementById("scatterPlot"),
+  pieChartDiv: document.getElementById("pieChart"),
+  barChartDiv: document.getElementById("barchart"),
+  lolipopSVG: document.getElementById("lolipopChart"),
 };
 
 function clearAllCharts() {
-    Object.values(chartContainers).forEach(container => {
-        container.style.display = 'none';
-        clearChart(container);
-    });
+  Object.values(chartContainers).forEach((container) => {
+    container.style.display = "none";
+    clearChart(container);
+  });
 }
 
 function clearChart(container) {
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
 }
 
 function showChart(chartType) {
-    clearAllCharts();
+  clearAllCharts();
 
-    chartContainers[chartType].style.display = 'block';
+  chartContainers[chartType].style.display = "block";
 
-    d3.csv(csvUrl).then((data) => {
-        switch (chartType) {
-            case 'scatterChart':
-                createScatterPlot(data);
-                break;
-            case 'pieChartDiv':
-                createPieChart(data);
-                break;
-        }
-    });
+  d3.csv(csvUrl).then((data) => {
+    switch (chartType) {
+      case "scatterChart":
+        createScatterPlot(data);
+        break;
+      case "pieChartDiv":
+        createPieChart(data);
+        break;
+      case "barChartDiv":
+        data.forEach((d) => {
+          d.rating = +d.rating;
+        });
+        createBarChart(data);
+        break;
+      case "lolipopSVG":
+        data.forEach((d) => {
+          d.rating = +d.rating;
+        });
+        createLollipopChart(data);
+
+        break;
+    }
+  });
 }
 
 //to initially load piechart by default
-window.addEventListener('load', () => {
-    showChart('pieChartDiv');
+window.addEventListener("load", () => {
+  showChart("pieChartDiv");
 });

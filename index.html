@@ -12,7 +12,10 @@
     <div id="navigation">
         <h1>Movie Data Visualizations</h1>
         <a href="#pieChart" onclick="showChart('pieChartDiv')">Pie Chart</a> |
-        <a href="#scatterPlot" onclick="showChart('scatterChart')">Scatter Plot</a>
+        <a href="#scatterPlot" onclick="showChart('scatterChart')">Scatter Plot</a> |
+        <a href="#barchart" onclick="showChart('barChartDiv')">Bar Chart</a> |
+        <a href="#lolipopchart" onclick="showChart('lolipopSVG')">Lollipop Chart</a>
+
     </div>
 
     <div class="chart-container">
@@ -26,11 +29,28 @@
             <div class="chart" id="pieChartDiv"></div>
             <div id="pieChartPercentage"></div>
         </div>
+
+          <!-- Bar Chart Container -->
+        <div id="barchart" class="barchart-container">
+            <div class="chart" id="barchartDiv"></div>
+        </div>
+
+
+        <div id="lolipopChart" class="lolipopchart-container">
+            <div class="chart" id="lolipopSVG"></div>
+        </div>
+    </div>
+
+
     </div>
 
     <script src="scatterplot.js"></script>
     <script src="piechart.js"></script>
     <script src="script.js"></script>
+
+    <script src="barChart.js"></script>
+    <script src="lolipopchart.js"></script>
+
 </body>
 
 </html>
