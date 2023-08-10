@@ -11,7 +11,7 @@ function createDoughnutChart(data) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        const color = d3.scaleOrdinal()
+    const color = d3.scaleOrdinal()
         .domain(data.map(d => d.name))
         .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());
 
@@ -70,13 +70,13 @@ function createDoughnutChart(data) {
     function handleDoughnutMouseover(event, d) {
         const genreCount = data.filter(movie => movie.genre === d.data).length;
         const percentage = ((genreCount / data.length) * 100).toFixed(2);
-    
+
         arcs.selectAll("path")
             .attr("opacity", 0.7);
-    
+
         d3.select(event.currentTarget)
             .attr("opacity", 1);
-    
+
         svgDoughnut
             .append("text")
             .attr("class", "doughnutDataLabel")
@@ -87,17 +87,17 @@ function createDoughnutChart(data) {
             .attr("transform", `translate(${arc.centroid(d)})`)
             .text(`${d.data}: ${percentage}%`);
     }
-    
+
     function handleDoughnutMouseout(event, d) {
         arcs.selectAll("path")
             .attr("opacity", 1);
-    
+
         d3.selectAll(".doughnutDataLabel").remove();
     }
 }
 
-d3.csv("movies.csv").then(function(data) {
-    data.forEach(function(d) {
+d3.csv("movies.csv").then(function (data) {
+    data.forEach(function (d) {
         d.rating = +d.rating;
     });
 

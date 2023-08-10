@@ -122,3 +122,12 @@ body {
     font-size: 14px;
     font-weight: bold;
 }
+
+.barchart-container{
+   margin: 0 auto;
+}
+
+.lolipopchart-container {
+    width: 100%;
+    margin: 0 auto;
+}
