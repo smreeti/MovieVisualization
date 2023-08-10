@@ -61,6 +61,16 @@ function createScatterPlot(data) {
         .attr("text-anchor", "middle")
         .text("Rating");
 
+    //Add caption
+    svgScatter
+    .append("text")
+    .attr("x", scatterInnerWidth / 2)
+    .attr("y", scatterInnerHeight + scatterMargin.top + scatterMargin.bottom - 30)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")
+    .style("font-weight", "bold")
+    .style("fill", "#666")
+    .text("Fig: Scatter Chart showing the ratings of movies by Release Year");
     const tooltip = d3.select("body").append("div")
         .attr("id", "tooltip");
 
