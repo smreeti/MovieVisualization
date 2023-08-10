@@ -3,6 +3,8 @@ const csvUrl = 'https://raw.githubusercontent.com/smreeti/MovieVisualization/mai
 const chartContainers = {
     'scatterChart': document.getElementById('scatterPlot'),
     'pieChartDiv': document.getElementById('pieChart'),
+    'connectedScatterChartDiv': document.getElementById('connectedScatterChart'),
+    'doughnutChartDiv': document.getElementById('doughnutChart'),
 };
 
 function clearAllCharts() {
@@ -31,11 +33,17 @@ function showChart(chartType) {
             case 'pieChartDiv':
                 createPieChart(data);
                 break;
+            case 'doughnutChartDiv':
+                createDoughnutChart(data);
+                break;
+            case 'connectedScatterChartDiv':
+                createConnectedScatterPlot(data);
+                break;
         }
     });
 }
 
-//to initially load piechart by default
+// to initially load pie chart by default
 window.addEventListener('load', () => {
     showChart('pieChartDiv');
 });

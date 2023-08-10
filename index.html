@@ -5,6 +5,7 @@
     <title>Genre Distribution of Movies</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
+
 </head>
 
 <body>
@@ -12,7 +13,9 @@
     <div id="navigation">
         <h1>Movie Data Visualizations</h1>
         <a href="#pieChart" onclick="showChart('pieChartDiv')">Pie Chart</a> |
-        <a href="#scatterPlot" onclick="showChart('scatterChart')">Scatter Plot</a>
+        <a href="#scatterPlot" onclick="showChart('scatterChart')">Scatter Plot |
+        <a href="#doughnutChart" onclick="showChart('doughnutChartDiv')">Doughnut Chart</a> |
+        <a href="#connectedScatterChart" onclick="showChart('connectedScatterChartDiv')">Connected Scatter Plot</a>
     </div>
 
     <div class="chart-container">
@@ -26,10 +29,20 @@
             <div class="chart" id="pieChartDiv"></div>
             <div id="pieChartPercentage"></div>
         </div>
+
+        <div id="doughnutChart" class="">
+            <div class="chart" id="doughnutChartDiv"></div>
+        </div>
+
+        <div id="connectedScatterChart" class="">
+            <div class="chart" id="connectedScatterChartDiv"></div>
+        </div>
     </div>
 
     <script src="scatterplot.js"></script>
     <script src="piechart.js"></script>
+    <script src="doughnutchart.js"></script>
+    <script src="connectedscatter.js"></script>
     <script src="script.js"></script>
 </body>
 
