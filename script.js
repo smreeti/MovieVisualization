@@ -6,7 +6,7 @@ const chartContainers = {
   pieChartDiv: document.getElementById("pieChart"),
   barChartDiv: document.getElementById("barchart"),
   lolipopSVG: document.getElementById("lolipopChart"),
-  connectedScatterChartDiv: document.getElementById('connectedScatterChart'),
+  dendogramDiv: document.getElementById('dendogram'),
   doughnutChartDiv: document.getElementById('doughnutChart')
 };
 
@@ -51,8 +51,8 @@ function showChart(chartType) {
       case 'doughnutChartDiv':
         createDoughnutChart(data);
         break;
-      case 'connectedScatterChartDiv':
-        createConnectedScatterPlot(data);
+      case 'dendogramDiv':
+        createDendogram(data);
         break;
     }
   });
