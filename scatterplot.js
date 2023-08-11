@@ -8,7 +8,7 @@ function createScatterPlot(data) {
     const svgScatter = d3.select("#scatterPlot")
         .append("svg")
         .attr("width", scatterWidth)
-        .attr("height", scatterHeight + 50)
+        .attr("height", scatterHeight)
         .append("g")
         .attr("transform", `translate(${scatterMargin.left}, ${scatterMargin.top})`);
 
@@ -63,14 +63,14 @@ function createScatterPlot(data) {
 
     //Add caption
     svgScatter
-        .append("text")
-        .attr("x", scatterInnerWidth / 2)
-        .attr("y", scatterInnerHeight + scatterMargin.top + scatterMargin.bottom - 10)
-        .attr("text-anchor", "middle")
-        .style("font-size", "12px")
-        .style("font-weight", "bold")
-        .style("fill", "#666")
-        .text("Fig: Scatter Chart showing the ratings of movies by Release Year");
+    .append("text")
+    .attr("x", scatterInnerWidth / 2)
+    .attr("y", scatterInnerHeight + scatterMargin.top + scatterMargin.bottom - 30)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")
+    .style("font-weight", "bold")
+    .style("fill", "#666")
+    .text("Fig: Scatter Chart showing the ratings of movies by Release Year");
     const tooltip = d3.select("body").append("div")
         .attr("id", "tooltip");
 

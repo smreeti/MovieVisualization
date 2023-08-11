@@ -22,6 +22,7 @@ function createLollipopChart(data) {
     .domain([0, d3.max(data, (d) => d.rating)])
     .nice()
     .range([height, 0]);
+    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
   svg.selectAll(".line")
     .data(data)
@@ -32,22 +33,27 @@ function createLollipopChart(data) {
     .attr("x2", (d) => x(d.title) + x.bandwidth() / 2)
     .attr("y1", height)
     .attr("y2", height)
-    .attr("stroke", "steelblue")
+    .attr("stroke", (d, i) => colorScale(i))
     .attr("stroke-width", 2)
     .transition()
     .duration(1000)
     .delay((d, i) => i * 100)
     .attr("y2", (d) => y(d.rating));
 
-  svg.selectAll(".circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("class", "circle")
-    .attr("cx", (d) => x(d.title) + x.bandwidth() / 2)
-    .attr("cy", (d) => y(d.rating))
-    .attr("r", 5)
-    .attr("fill", "red");
+    const donutRadius = 10;
+    const donutWidth = 3;
+  
+    svg.selectAll(".donut")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("class", "donut")
+      .attr("cx", (d) => x(d.title) + x.bandwidth() / 2)
+      .attr("cy", (d) => y(d.rating))
+      .attr("r", donutRadius)
+      .attr("fill", "white")
+      .attr("stroke", (d, i) => colorScale(i))
+      .attr("stroke-width", donutWidth);
 
   const xAxis = svg
     .append("g")

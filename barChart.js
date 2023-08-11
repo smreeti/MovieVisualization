@@ -47,6 +47,7 @@ function createBarChart(data) {
     .attr("x", -height / 2)
     .attr("y", -margin.left + 15)
     .attr("text-anchor", "middle")
+    .style("fill", "white")
     .text("Rating");
 
   svg
@@ -60,6 +61,8 @@ function createBarChart(data) {
     .attr("width", x.bandwidth())
     .attr("height", (d) => height - y(d.rating))
     .on("mousemove", handleBarMousemove)
+    .on("mouseout", handleBarMouseout)
+    .on("mouseover", handleBarMouseover)
     .on("mouseout", handleBarMouseout);
 
   svg
@@ -71,6 +74,7 @@ function createBarChart(data) {
     .attr("x", (d) => x(d.title) + x.bandwidth() / 2)
     .attr("y", (d) => y(d.rating) - 5)
     .attr("text-anchor", "middle")
+    .style("fill", "white")
     .text((d) => d.rating);
 
   svg
@@ -80,6 +84,7 @@ function createBarChart(data) {
     .attr("y", height + margin.top)
     .attr("dy", "2em")
     .attr("text-anchor", "middle")
+    .style("fill", "white")
     .text("Movie Title");
 
   svg
@@ -90,6 +95,7 @@ function createBarChart(data) {
     .attr("dy", "-2.5em")
     .attr("text-anchor", "middle")
     .text("Rating")
+    .style("fill", "white")
     .style("font-size", fontSize);
 
   svg
@@ -100,15 +106,9 @@ function createBarChart(data) {
     .attr("dy", "-2.5em")
     .attr("text-anchor", "middle")
     .style("font-size", fontSize)
+    .style("fill", "white")
     .text("(Rating)");
 
-  svg
-    .append("text")
-    .attr("x", width / 2)
-    .attr("y", -margin.top / 2)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Movie Ratings");
 
   svg
     .append("text")
@@ -119,6 +119,7 @@ function createBarChart(data) {
     .style("font-weight", "bold")
     .style("fill", "#666")
     .attr("dy", "1.5em")
+    .style("fill", "white")
     .text("Fig: Chart showing the ratings of movies by title");
 
   // Tooltip
@@ -128,6 +129,20 @@ function createBarChart(data) {
     .attr("id", "tooltip")
     .style("display", "none");
 
+
+    function handleBarMouseover(event, d) {
+      const yPos = y(d.rating);
+      svg
+        .append("line")
+        .attr("class", "dashed-line")
+        .attr("x1", 0)
+        .attr("y1", yPos)
+        .attr("x2", width)
+        .attr("y2", yPos)
+        .style("stroke-dasharray", "5, 5")
+        .style("stroke", "#e3bc0e")
+        .style("stroke-width", "1px");
+    }  
   function handleBarMousemove(event, d) {
     tooltip
       .style("left", event.pageX + 10 + "px")
@@ -139,6 +154,7 @@ function createBarChart(data) {
   }
 
   function handleBarMouseout() {
+    svg.selectAll(".dashed-line").remove();
     tooltip.style("display", "none");
   }
 }
