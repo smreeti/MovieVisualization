@@ -34,16 +34,15 @@ function createWordcloudChart(data) {
         .data(words)
         .enter()
         .append("text")
-        .style("font-size", "0px") // Start with font size 0
+        .style("font-size", "0px")
         .style("fill", "steelblue")
         .attr("text-anchor", "middle")
         .attr("transform", (d) => `translate(${d.x},${d.y})rotate(${d.rotate})`)
         .text((d) => d.text);
   
-      // Apply transition for fade-in effect
       textGroup
         .transition()
-        .duration(1000) // Adjust the duration as needed
+        .duration(1000) 
         .style("font-size", (d) => d.size + "px");
     }
   }
