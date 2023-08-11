@@ -7,7 +7,9 @@ const chartContainers = {
   barChartDiv: document.getElementById("barchart"),
   lolipopSVG: document.getElementById("lolipopChart"),
   dendogramDiv: document.getElementById('dendogram'),
-  doughnutChartDiv: document.getElementById('doughnutChart')
+  doughnutChartDiv: document.getElementById('doughnutChart'),
+  bubblechartSVG: document.getElementById('bubblechart'),  
+  WordcloudchartSVG: document.getElementById('wordcloudchart')
 };
 
 function clearAllCharts() {
@@ -50,10 +52,24 @@ function showChart(chartType) {
         break;
       case 'doughnutChartDiv':
         createDoughnutChart(data);
-        break;
+        break; 
+        
+
       case 'dendogramDiv':
         createDendogram(data);
         break;
+      
+        case 'bubblechartSVG':
+          createBubbleChart(data);
+          break;
+
+          case 'WordcloudchartSVG':
+            createWordcloudChart(data);
+            break;
+
+          
+
+        
     }
   });
 }
