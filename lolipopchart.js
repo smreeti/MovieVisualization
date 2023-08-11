@@ -73,7 +73,7 @@ function createLollipopChart(data) {
     .style("fill", "#666")
     .text("Fig: Lollipop Chart showing the ratings of movies by title");
 
-    svg
+  svg
     .append("text")
     .attr("class", "axis-label")
     .attr("transform", "rotate(-90)")
@@ -81,7 +81,6 @@ function createLollipopChart(data) {
     .attr("y", -margin.left + 15)
     .attr("text-anchor", "middle")
     .text("Rating");
-
 
   svg
     .append("text")
@@ -92,7 +91,6 @@ function createLollipopChart(data) {
     .attr("text-anchor", "middle")
     .text("Movie Title");
 
-
   svg
     .append("text")
     .attr("transform", "rotate(-90)")
@@ -101,13 +99,4 @@ function createLollipopChart(data) {
     .attr("dy", "-2.5em")
     .attr("text-anchor", "middle")
     .text("Rating");
-
-
-  svg
-    .append("text")
-    .attr("x", width / 2)
-    .attr("y", -margin.top / 2)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Lollipop Chart");
 }

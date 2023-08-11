@@ -1,7 +1,7 @@
-function createBubbleChart(data) {
+const createBubbleChart = (data) => {
     d3.select("#bubblechart").selectAll("*").remove();
 
-    const diameter = 500;
+    const diameter = 700;
     const svg = d3.select("#bubblechart").append("svg")
         .attr("width", diameter)
         .attr("height", diameter);
@@ -27,16 +27,15 @@ function createBubbleChart(data) {
     node.append("text")
         .attr("dy", "-1.2em")
         .style("text-anchor", "middle")
-        .style("fill", "black") 
-        .style("font-size", "10px")
+        .style("fill", "black")
+        .style("font-size", "12px")
         .text(d => `${d.data.title}`);
 
     node.append("text")
         .attr("dy", "0.5em")
         .style("text-anchor", "middle")
-        .style("fill", "gray") 
+        .style("fill", "gray")
         .text(d => `${d.data.rating}`);
-
 
     const legendData = [
         { label: "Movie Name", color: "black" },
@@ -63,11 +62,10 @@ function createBubbleChart(data) {
         .attr("dy", "0.8em")
         .text(d => d.label);
 
- 
     function moveBubbles() {
         node.transition()
             .duration(1000)
-            .attr("transform", function(d) {
+            .attr("transform", function (d) {
                 const xOffset = Math.random() * 20 - 10;
                 const yOffset = Math.random() * 20 - 10;
                 return `translate(${d.x + xOffset},${d.y + yOffset})`;
@@ -76,7 +74,4 @@ function createBubbleChart(data) {
     }
 
     moveBubbles();
-
-
-
 }

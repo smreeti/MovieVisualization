@@ -6,7 +6,6 @@ body {
     background-color: #e3e3e3;
     padding: 10px;
     text-align: center;
-    margin-bottom: 40px;
 }
 
 #navigation a {
@@ -54,6 +53,10 @@ body {
 
 .legend-text {
     font-size: 16px;
+}
+
+.pieChart-container, .barchart-container{
+    margin-top: 25px !important;
 }
 
 #pieChartPercentage {
@@ -152,4 +155,8 @@ body {
     width: 10px;
     height: 10px;
     margin-right: 5px;
+}
+
+.selected {
+    fill: white;
 }

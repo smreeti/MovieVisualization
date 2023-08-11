@@ -73,9 +73,8 @@ const createScatterPlot = (data) => {
         .attr("x", scatterPlotInnerWidth / 2)
         .attr("y", scatterPlotInnerHeight + scatterPlotMargin.top + scatterPlotMargin.bottom - 10)
         .attr("text-anchor", "middle")
-        .style("font-size", "12px")
+        .style("font-size", "14px")
         .style("font-weight", "bold")
-        .style("fill", "#666")
         .text("Fig: Scatter Chart showing the ratings of movies by Release Year");
 
     const tooltip = d3.select("body").append("div")

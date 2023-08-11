@@ -74,10 +74,9 @@ const createPieChart = (data) => {
     .attr("x", width / 3 - 230)
     .attr("y", height / 2 + 40)
     .attr("text-anchor", "middle")
-    .style("font-size", "12px")
+    .style("font-size", "14px")
     .style("font-weight", "bold")
     .style("margin-top", "10px")
-    .style("fill", "#666")
     .text("Fig: Pie chart showing the distribution of movie genres");
 
   function handlePieMouseover(event, d) {
@@ -94,7 +93,7 @@ const createPieChart = (data) => {
       .attr("text-anchor", "middle")
       .attr("font-size", "14px")
       .attr("font-weight", "bold")
-      .attr("fill", "#333")
+      .attr("fill", "white")
       .attr("transform", `translate(${arc.centroid(d)})`)
       .text(`${d.data}: ${percentage}%`)
       .style("opacity", 0)
