@@ -136,7 +136,7 @@ body {
 }
 
 .node circle {
-    fill: lightblue;
+    fill: #80d3ef;
     transition: transform 2s ease-in-out;
 }
 

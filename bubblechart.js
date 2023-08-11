@@ -34,12 +34,12 @@ const createBubbleChart = (data) => {
     node.append("text")
         .attr("dy", "0.5em")
         .style("text-anchor", "middle")
-        .style("fill", "gray")
+        .style("fill", "#D35400")
         .text(d => `${d.data.rating}`);
 
     const legendData = [
         { label: "Movie Name", color: "black" },
-        { label: "Rating", color: "gray" }
+        { label: "Rating", color: "#D35400" }
     ];
 
     const legend = svg.append("g")

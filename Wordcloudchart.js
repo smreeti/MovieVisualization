@@ -18,9 +18,8 @@ const createWordcloudChart = (data) => {
     .attr("x", width / 2)
     .attr("y", height - 10)
     .attr("text-anchor", "middle")
-    .style("font-size", "14px")
+    .style("font-size", "13px")
     .style("font-weight", "bold")
-    .style("fill", "#666")
     .text("Fig: Wordcloud showing the movie names");
 
   const layout = d3.layout
