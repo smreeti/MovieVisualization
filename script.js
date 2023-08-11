@@ -7,7 +7,9 @@ const chartContainers = {
   barChartDiv: document.getElementById("barchart"),
   lolipopSVG: document.getElementById("lolipopChart"),
   connectedScatterChartDiv: document.getElementById('connectedScatterChart'),
-  doughnutChartDiv: document.getElementById('doughnutChart')
+  doughnutChartDiv: document.getElementById('doughnutChart'),
+  radarchartSVG: document.getElementById('radarchartSVG'),  
+  WordcloudchartSVG: document.getElementById('WordcloudchartSVG')
 };
 
 function clearAllCharts() {
@@ -50,10 +52,24 @@ function showChart(chartType) {
         break;
       case 'doughnutChartDiv':
         createDoughnutChart(data);
-        break;
+        break; 
+        
+
       case 'connectedScatterChartDiv':
         createConnectedScatterPlot(data);
         break;
+      
+        case 'radarchartSVG':
+          createRadarChart(data);
+          break;
+
+          case 'WordcloudchartSVG':
+            createWorldcloudChart(data);
+            break;
+
+          
+
+        
     }
   });
 }
