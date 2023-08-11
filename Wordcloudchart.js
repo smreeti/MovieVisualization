@@ -54,7 +54,8 @@ const createWordcloudChart = (data) => {
         .transition()
         .duration(200)
         .style("font-size", (d.size + 3) + "px")
-        .style("fill", "orange");
+        .style("fill", "orange")
+        .style("cursor", "pointer");
     }
 
     function handleTextMouseout(event, d) {
