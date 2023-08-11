@@ -3,9 +3,7 @@ function createWordcloudChart(data) {
       text: movie.title,
       size: Math.sqrt(movie.rating) * 20,
     }));
-  
-    console.log(words);
-  
+    
     const width = 800;
     const height = 800;
   
