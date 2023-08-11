@@ -1,4 +1,4 @@
-function createPieChart(data) {
+const createPieChart = (data) => {
   const width = 800;
   const height = 400;
   const pieRadius = Math.min(width, height) / 2;
@@ -71,7 +71,7 @@ function createPieChart(data) {
 
   svgPie
     .append("text")
-    .attr("x", width / 3 - 200)
+    .attr("x", width / 3 - 230)
     .attr("y", height / 2 + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "12px")
@@ -83,9 +83,9 @@ function createPieChart(data) {
   function handlePieMouseover(event, d) {
     const genreCount = data.filter((movie) => movie.genre === d.data).length;
     const percentage = ((genreCount / data.length) * 100).toFixed(2);
-    path.attr("opacity", 0.7);
+    path.attr("opacity", 0.5);
 
-    path.transition().duration(200).attr("opacity", 0.7);
+    path.transition().duration(200).attr("opacity", 0.5);
     d3.select(event.currentTarget).transition().duration(200).attr("opacity", 1);
 
     svgPie
