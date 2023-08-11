@@ -1,13 +1,13 @@
 function createPieChart(data) {
   const width = 800;
   const height = 400;
-  const radius = Math.min(width, height) / 2;
+  const pieRadius = Math.min(width, height) / 2;
 
   const svgPie = d3
     .select("#pieChart")
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
+    .attr("height", height + 50)
     .append("g")
     .attr(
       "transform",
@@ -24,7 +24,7 @@ function createPieChart(data) {
     .value((d) => data.filter((movie) => movie.genre === d).length)
     .sort(null);
 
-  const arc = d3.arc().innerRadius(0).outerRadius(radius);
+  const arc = d3.arc().innerRadius(0).outerRadius(pieRadius);
 
   const path = svgPie
     .selectAll("path")
@@ -72,11 +72,12 @@ function createPieChart(data) {
   //Caption
   svgPie
     .append("text")
-    .attr("x", width / 3)
-    .attr("y", height / 2 - 5)
+    .attr("x", width / 3 - 200)
+    .attr("y", height / 2 + 40)
     .attr("text-anchor", "middle")
     .style("font-size", "12px")
     .style("font-weight", "bold")
+    .style("margin-top", "10px")
     .style("fill", "#666")
     .text("Fig: Pie chart showing the distribution of movie genres");
 
