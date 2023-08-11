@@ -125,7 +125,21 @@ body {
 
 .barchart-container{
    margin: 0 auto;
+   width: 800px;
+   background-color: #2F4A6D;
+   color: #fff;
 }
+.barchart-container > .axis-label text{
+    color: #fff;
+}
+
+.bar {
+    fill: #80cbc4;
+  }
+
+  .bar-label{
+    color:#fff;
+  }
 
 .lolipopchart-container {
     width: 100%;
