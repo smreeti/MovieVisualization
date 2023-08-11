@@ -1,8 +1,8 @@
-function createRadarChart(data) {
+function createBubbleChart(data) {
 
 
     const diameter = 500;
-    const svg = d3.select("#radarchart").append("svg")
+    const svg = d3.select("#bubblechart").append("svg")
         .attr("width", diameter)
         .attr("height", diameter);
 
@@ -27,13 +27,14 @@ function createRadarChart(data) {
     node.append("text")
         .attr("dy", "-1.2em")
         .style("text-anchor", "middle")
-        .style("fill", "black") // Set color for movie names
+        .style("fill", "black") 
+        .style("font-size", "10px")
         .text(d => `${d.data.title}`);
 
     node.append("text")
         .attr("dy", "0.5em")
         .style("text-anchor", "middle")
-        .style("fill", "gray") // Set color for ratings
+        .style("fill", "gray") 
         .text(d => `${d.data.rating}`);
 
 

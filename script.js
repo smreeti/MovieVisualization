@@ -8,7 +8,7 @@ const chartContainers = {
   lolipopSVG: document.getElementById("lolipopChart"),
   connectedScatterChartDiv: document.getElementById('connectedScatterChart'),
   doughnutChartDiv: document.getElementById('doughnutChart'),
-  radarchartSVG: document.getElementById('radarchartSVG'),  
+  bubblechartSVG: document.getElementById('bubblechartSVG'),  
   WordcloudchartSVG: document.getElementById('WordcloudchartSVG')
 };
 
@@ -59,8 +59,8 @@ function showChart(chartType) {
         createConnectedScatterPlot(data);
         break;
       
-        case 'radarchartSVG':
-          createRadarChart(data);
+        case 'bubblechartSVG':
+          createBubbleChart(data);
           break;
 
           case 'WordcloudchartSVG':
