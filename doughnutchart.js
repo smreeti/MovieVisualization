@@ -3,103 +3,76 @@ function createDoughnutChart(data) {
     const height = 400;
     const radius = Math.min(width, height) / 2;
 
-    const svgDoughnut = d3
+    const svg = d3
         .select("#doughnutChart")
         .append("svg")
         .attr("width", width)
-        .attr("height", height)
-        .append("g")
+        .attr("height", height);
+
+    const chartGroup = svg.append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    const color = d3.scaleOrdinal()
-        .domain(data.map(d => d.name))
-        .range(d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), data.length).reverse());
+    const color = d3.scaleOrdinal(d3.schemeSet3);
 
     const genres = data.map(d => d.genre);
     const uniqueGenres = Array.from(new Set(genres));
 
-    const pie = d3
-        .pie()
-        .value((d) => data.filter(movie => movie.genre === d).length)
+    // Shuffle the data randomly
+    const shuffledData = data.sort(() => Math.random() - 0.5);
+
+    const pie = d3.pie()
+        .value(d => shuffledData.filter(movie => movie.genre === d).length)
         .sort(null);
 
-    const arc = d3.arc().innerRadius(radius * 0.5).outerRadius(radius);
+    const arc = d3.arc()
+        .innerRadius(radius * 0.5)
+        .outerRadius(radius * 0.8);
 
-    const arcs = svgDoughnut
+    const arcs = chartGroup
         .selectAll("arc")
         .data(pie(uniqueGenres))
         .enter()
         .append("g")
         .attr("class", "arc");
 
-    arcs
-        .append("path")
+    // Add the path with initial opacity and grow animation
+    arcs.append("path")
         .attr("d", arc)
         .attr("fill", (d, i) => color(i))
         .attr("stroke", "white")
         .style("stroke-width", "2px")
-        .style("cursor", "pointer")
-        .on("mouseover", handleDoughnutMouseover)
-        .on("mouseout", handleDoughnutMouseout);
-
-
-    const legend = svgDoughnut
-        .selectAll(".legend")
-        .data(pie(uniqueGenres))
-        .enter()
-        .append("g")
-        .attr("class", "legend")
-        .attr("transform", function (d, i) {
-            return "translate(" + (-width / 2 + 670) + "," + (-height / 2 + 20 + i * 30) + ")";
+        .style("opacity", 0)
+        .transition()
+        .duration(1000)
+        .style("opacity", 1)
+        .attrTween("d", function(d) {
+            const interpolate = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+            return function(t) {
+                return arc(interpolate(t));
+            };
         });
 
-    legend
-        .append("rect")
-        .attr("width", 20)
-        .attr("height", 20)
-        .style("fill", (d, i) => color(i));
-
-    legend
+    const labels = arcs
         .append("text")
-        .attr("x", 30)
-        .attr("y", 15)
-        .text((d) => (d.data))
-        .attr("class", "legend-text")
-        .style("cursor", "pointer");
+        .attr("transform", d => `translate(${arc.centroid(d)})`)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "middle")
+        .attr("font-size", "14px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#333")
+        .style("opacity", 0)
+        .transition()
+        .duration(1000)
+        .style("opacity", 1)
+        .text(d => d.data);
 
-    function handleDoughnutMouseover(event, d) {
-        const genreCount = data.filter(movie => movie.genre === d.data).length;
-        const percentage = ((genreCount / data.length) * 100).toFixed(2);
-
-        arcs.selectAll("path")
-            .attr("opacity", 0.7);
-
-        d3.select(event.currentTarget)
-            .attr("opacity", 1);
-
-        svgDoughnut
-            .append("text")
-            .attr("class", "doughnutDataLabel")
-            .attr("text-anchor", "middle")
-            .attr("font-size", "14px")
-            .attr("font-weight", "bold")
-            .attr("fill", "#333")
-            .attr("transform", `translate(${arc.centroid(d)})`)
-            .text(`${d.data}: ${percentage}%`);
-    }
-
-    function handleDoughnutMouseout(event, d) {
-        arcs.selectAll("path")
-            .attr("opacity", 1);
-
-        d3.selectAll(".doughnutDataLabel").remove();
-    }
+    // Add the title below the chart
+    svg.append("text")
+        .attr("x", width / 2)
+        .attr("y", height)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text("Figure: Doughnut Chart displaying the ratings of movies by Release year.");
 }
-
-d3.csv("movies.csv").then(function (data) {
-    data.forEach(function (d) {
-        d.rating = +d.rating;
-    });
-
-    createDoughnutChart(data);
-});
