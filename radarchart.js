@@ -1,5 +1,5 @@
 function createBubbleChart(data) {
-
+    d3.select("#bubblechart").selectAll("*").remove();
 
     const diameter = 500;
     const svg = d3.select("#bubblechart").append("svg")

@@ -8,8 +8,8 @@ const chartContainers = {
   lolipopSVG: document.getElementById("lolipopChart"),
   connectedScatterChartDiv: document.getElementById('connectedScatterChart'),
   doughnutChartDiv: document.getElementById('doughnutChart'),
-  bubblechartSVG: document.getElementById('bubblechartSVG'),  
-  WordcloudchartSVG: document.getElementById('WordcloudchartSVG')
+  bubblechartSVG: document.getElementById('bubblechart'),  
+  WordcloudchartSVG: document.getElementById('wordcloudchart')
 };
 
 function clearAllCharts() {
@@ -64,7 +64,7 @@ function showChart(chartType) {
           break;
 
           case 'WordcloudchartSVG':
-            createWorldcloudChart(data);
+            createWordcloudChart(data);
             break;
 
           

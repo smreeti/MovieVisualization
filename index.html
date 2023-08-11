@@ -5,7 +5,7 @@
     <title>Genre Distribution of Movies</title>
     <link rel="stylesheet" href="style.css" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
-   
+    <script src="https://cdn.rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
 
 </head>
 
@@ -23,7 +23,7 @@
 
             <a href="#bubblechart" onclick="showChart('bubblechartSVG')">Bubble Chart</a> |
 
-            <a href="#Wordcloudchart" onclick="showChart('WordcloudchartchartSVG')">Wordcloud</a> 
+            <a href="#Wordcloudchart" onclick="showChart('WordcloudchartSVG')">Wordcloud</a> 
 
 
     </div>
@@ -62,7 +62,7 @@
 
 
         
-        <div id="Wordcloudchart" class="Wordcloudchart-container">
+        <div id="wordcloudchart" class="Wordcloudchart-container">
             <div class="chart" id="WordcloudchartSVG"></div>
         </div>
 
@@ -79,6 +79,7 @@
     <script src="barChart.js"></script>
     <script src="lolipopchart.js"></script>
     <script src="radarchart.js"></script>
+    <script src="Wordcloudchart.js"></script>
 
 </body>
 
