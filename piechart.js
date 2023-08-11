@@ -15,24 +15,22 @@ const createPieChart = (data) => {
     );
 
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-  const genres = data.map((d) => d.genre);
-  const uniqueGenres = Array.from(new Set(genres));
+  const groupedGenresData = Array.from(d3.group(data, d => d.genre));
 
   const pie = d3
     .pie()
-    .value((d) => data.filter((movie) => movie.genre === d).length)
+    .value(([, values]) => values.length)
     .sort(null);
 
   const arc = d3.arc().innerRadius(0).outerRadius(pieRadius);
 
   const path = svgPie
     .selectAll("path")
-    .data(pie(uniqueGenres))
+    .data(pie(groupedGenresData))
     .enter()
     .append("path")
     .attr("d", arc)
-    .attr("fill", (d) => color(d.data))
+    .attr("fill", (d) => color(d.data[0]))
     .attr("stroke", "white")
     .style("stroke-width", "2px")
     .style("cursor", "pointer")
@@ -41,7 +39,7 @@ const createPieChart = (data) => {
 
   const legend = svgPie
     .selectAll(".legend")
-    .data(pie(uniqueGenres))
+    .data(pie(groupedGenresData))
     .enter()
     .append("g")
     .attr("class", "legend")
@@ -59,13 +57,13 @@ const createPieChart = (data) => {
     .append("rect")
     .attr("width", 20)
     .attr("height", 20)
-    .style("fill", (d) => color(d.data));
+    .style("fill", (d) => color(d.data[0]));
 
   legend
     .append("text")
     .attr("x", 30)
     .attr("y", 15)
-    .text((d) => d.data)
+    .text((d) => d.data[0])
     .attr("class", "legend-text")
     .style("cursor", "pointer");
 
@@ -80,7 +78,7 @@ const createPieChart = (data) => {
     .text("Fig: Pie chart showing the distribution of movie genres");
 
   function handlePieMouseover(event, d) {
-    const genreCount = data.filter((movie) => movie.genre === d.data).length;
+    const genreCount = d.data[1].length;
     const percentage = ((genreCount / data.length) * 100).toFixed(2);
     path.attr("opacity", 0.5);
 
@@ -95,7 +93,7 @@ const createPieChart = (data) => {
       .attr("font-weight", "bold")
       .attr("fill", "white")
       .attr("transform", `translate(${arc.centroid(d)})`)
-      .text(`${d.data}: ${percentage}%`)
+      .text(`${d.data[0]}: ${percentage}%`)
       .style("opacity", 0)
       .transition()
       .duration(200)
