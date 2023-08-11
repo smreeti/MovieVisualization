@@ -145,3 +145,25 @@ body {
     width: 100%;
     margin: 0 auto;
 }
+
+.node circle {
+    fill: lightblue;
+    transition: transform 2s ease-in-out;
+}
+
+.legend {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+}
