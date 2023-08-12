@@ -44,12 +44,6 @@ body {
     cursor: pointer;
 }
 
-.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 2;
-}
-
 .legend {
     display: flex;
     align-items: center;
@@ -67,7 +61,11 @@ body {
 }
 
 .legend-text {
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.pieChart-container, .barchart-container{
+    margin-top: 25px !important;
 }
 
 #pieChartPercentage {
@@ -90,12 +88,6 @@ body {
 .bar:hover {
     fill: darkblue;
     opacity: 1;
-}
-
-.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 2;
 }
 
 .axis-x,
@@ -167,7 +159,7 @@ body {
 }
 
 .node circle {
-    fill: lightblue;
+    fill: #80d3ef;
     transition: transform 2s ease-in-out;
 }
 
@@ -187,3 +179,18 @@ body {
     height: 10px;
     margin-right: 5px;
 }
+
+.selected {
+    fill: white;
+}
+
+.pie-path:hover {
+    transition: box-shadow 0.3s;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .pie-path-hovered {
+    transition: box-shadow 0.3s;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  }
+  

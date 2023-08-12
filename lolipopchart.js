@@ -22,6 +22,7 @@ function createLollipopChart(data) {
     .domain([0, d3.max(data, (d) => d.rating)])
     .nice()
     .range([height, 0]);
+    
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
   svg.selectAll(".line")
@@ -34,14 +35,14 @@ function createLollipopChart(data) {
     .attr("y1", height)
     .attr("y2", height)
     .attr("stroke", (d, i) => colorScale(i))
-    .attr("stroke-width", 2)
+    .attr("stroke-width", 5)
     .transition()
     .duration(1000)
     .delay((d, i) => i * 100)
     .attr("y2", (d) => y(d.rating));
 
     const donutRadius = 10;
-    const donutWidth = 3;
+    const donutWidth = 5;
   
     svg.selectAll(".donut")
       .data(data)
@@ -50,6 +51,9 @@ function createLollipopChart(data) {
       .attr("class", "donut")
       .attr("cx", (d) => x(d.title) + x.bandwidth() / 2)
       .attr("cy", (d) => y(d.rating))
+      .style("cursor", "pointer")
+      .on("mouseover", handleScatterPlotMouseover)
+      .on("mouseout", handleScatterPlotMouseout)
       .attr("r", donutRadius)
       .attr("fill", "white")
       .attr("stroke", (d, i) => colorScale(i))
@@ -79,7 +83,7 @@ function createLollipopChart(data) {
     .style("fill", "#666")
     .text("Fig: Lollipop Chart showing the ratings of movies by title");
 
-    svg
+  svg
     .append("text")
     .attr("class", "axis-label")
     .attr("transform", "rotate(-90)")
@@ -87,7 +91,6 @@ function createLollipopChart(data) {
     .attr("y", -margin.left + 15)
     .attr("text-anchor", "middle")
     .text("Rating");
-
 
   svg
     .append("text")
@@ -98,7 +101,6 @@ function createLollipopChart(data) {
     .attr("text-anchor", "middle")
     .text("Movie Title");
 
-
   svg
     .append("text")
     .attr("transform", "rotate(-90)")
@@ -108,12 +110,19 @@ function createLollipopChart(data) {
     .attr("text-anchor", "middle")
     .text("Rating");
 
+    const tooltip = d3.select("body").append("div")
+    .attr("id", "tooltip");
 
-  svg
-    .append("text")
-    .attr("x", width / 2)
-    .attr("y", -margin.top / 2)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Lollipop Chart");
+function handleScatterPlotMouseover(event, d) {
+    tooltip
+        .style("left", event.pageX + "px")
+        .style("top", event.pageY + "px")
+        .style("display", "block")
+        .html(`<strong>${d.title}</strong>
+        <br>Genre: ${d.genre}<br>Rating: ${d.rating}<br>Release Year: ${d.releaseYear}`);
+}
+
+function handleScatterPlotMouseout(event, d) {
+    tooltip.style("display", "none");
+}
 }
