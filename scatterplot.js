@@ -1,5 +1,5 @@
 const createScatterPlot = (data) => {
-    const scatterWidth = 800;
+    const scatterWidth = 750;
     const scatterHeight = 450;
     const scatterPlotMargin = {
         top: 30,

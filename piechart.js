@@ -8,6 +8,7 @@ const createPieChart = (data) => {
     .append("svg")
     .attr("width", width)
     .attr("height", height + 50)
+    .style("margin-top", "10px")
     .append("g")
     .attr(
       "transform",

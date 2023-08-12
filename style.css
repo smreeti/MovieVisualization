@@ -31,10 +31,12 @@ body {
 #navigation a.active {
     background-color: #e3bc0e;
 }
+
 #navbar-right {
     display: flex;
     align-items: center;
-  }
+}
+
 .chart-container {
     margin-top: 1.3rem;
     text-align: center;
@@ -65,8 +67,15 @@ body {
     font-size: 16px;
 }
 
-.pieChart-container, .barchart-container{
+.pieChart-container,
+.barchart-container {
     margin-top: 25px !important;
+}
+
+.pieChart-container, .scatterPlot-container {
+    margin: auto;
+    border: 1px solid #e3e3e3;
+    width: 50%;
 }
 
 #pieChartPercentage {
@@ -188,10 +197,9 @@ body {
 .pie-path:hover {
     transition: box-shadow 0.3s;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .pie-path-hovered {
+.pie-path-hovered {
     transition: box-shadow 0.3s;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-  }
-  
+}
