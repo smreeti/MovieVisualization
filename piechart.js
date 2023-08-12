@@ -7,16 +7,16 @@ const createPieChart = (data) => {
     .select("#pieChart")
     .append("svg")
     .attr("width", width)
-    .attr("height", height + 50)
+    .attr("height", height + 100)
     .style("margin-top", "10px")
     .append("g")
     .attr(
       "transform",
-      "translate(" + (width - 300) / 2 + "," + height / 2 + ")"
+      "translate(" + (width - 300) / 2 + "," + (height / 2 + 20) + ")"
     );
 
   const color = d3.scaleOrdinal(d3.schemeCategory10);
-  const groupedGenresData = Array.from(d3.group(data, d => d.genre));
+  const groupedGenresData = Array.from(d3.group(data, (d) => d.genre));
 
   const pie = d3
     .pie()
@@ -25,7 +25,7 @@ const createPieChart = (data) => {
 
   const arc = d3.arc().innerRadius(0).outerRadius(pieRadius);
 
-  const path = svgPie
+  const paths = svgPie
     .selectAll("path")
     .data(pie(groupedGenresData))
     .enter()
@@ -78,14 +78,26 @@ const createPieChart = (data) => {
     .style("margin-top", "10px")
     .text("Fig: Pie chart showing the distribution of movie genres");
 
+  let selectedPath = null; // Store the selected path
+
   function handlePieMouseover(event, d) {
     const genreCount = d.data[1].length;
     const percentage = ((genreCount / data.length) * 100).toFixed(2);
-    path.attr("opacity", 0.5);
 
-    path.transition().duration(200).attr("opacity", 0.5);
-    d3.select(event.currentTarget).transition().duration(200).attr("opacity", 1);
+    if (selectedPath) {
+      paths.transition().duration(200).attr("opacity", 0.5); // Reset opacity of all slices
+    }
 
+    // Highlight the selected arc
+    d3.select(event.currentTarget)
+      .transition()
+      .duration(200)
+      .attr("d", d3.arc().innerRadius(0).outerRadius(pieRadius * 1.1))
+      .attr("opacity", 1);
+
+    selectedPath = d3.select(event.currentTarget);
+
+    // Add tooltip label with transition
     svgPie
       .append("text")
       .attr("class", "pieDataLabel")
@@ -102,15 +114,19 @@ const createPieChart = (data) => {
   }
 
   function handlePieMouseout(event, d) {
-    path.transition().duration(200).attr("opacity", 1);
+    selectedPath = null;
+    // Revert the arc to its original size
+    d3.select(event.currentTarget)
+      .transition()
+      .duration(200)
+      .attr("d", arc);
 
+    // Remove the tooltip label with transition
     svgPie
       .selectAll(".pieDataLabel")
       .transition()
       .duration(200)
       .style("opacity", 0)
       .remove();
-
-    d3.select("#pieChartPercentage").style("display", "none");
   }
-}
+};
