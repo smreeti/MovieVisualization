@@ -30,6 +30,7 @@ body {
 
 #navigation a.active {
     background-color: #e3bc0e;
+    color: black;
 }
 
 #navbar-right {

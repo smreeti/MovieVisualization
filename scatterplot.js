@@ -9,7 +9,6 @@ const createScatterPlot = (data) => {
     };
     const scatterPlotInnerWidth = scatterWidth - scatterPlotMargin.left - scatterPlotMargin.right;
     const scatterPlotInnerHeight = scatterHeight - scatterPlotMargin.top - scatterPlotMargin.bottom;
-    let tooltipVisible = false;
 
     const svgScatterPlot = d3.select("#scatterPlot")
         .append("svg")
@@ -45,15 +44,14 @@ const createScatterPlot = (data) => {
         .append("circle")
         .attr("cx", d => xScaleScatterPlot(d.releaseYear))
         .attr("cy", d => yScaleScatterPlot(d.genre) + yScaleScatterPlot.bandwidth() / 2)
-        .attr("r", 6)
+        .attr("r", 7)
         .attr("fill", "steelblue")
-        .style("cursor", "pointer")
+        // .style("cursor", "pointer")
         .on("mouseover", handleScatterPlotMouseover)
         .on("mouseout", handleScatterPlotMouseout)
         .style("opacity", 0)
         .transition()
         .duration(800)
-        .style("opacity", 1)
         .delay((d, i) => i * 100)
         .style("opacity", 1);
 
@@ -85,32 +83,28 @@ const createScatterPlot = (data) => {
         .attr("id", "tooltip");
 
     function handleScatterPlotMouseover(event, d) {
-        d3.select(event.currentTarget)
+        d3.select(this)
             .transition()
-            .attr("r", 8);
+            .attr("r", 14)
+            .attr("fill", 'red');
 
-        if (!tooltipVisible) {
-            tooltip
-                .style("left", event.pageX + "px")
-                .style("top", event.pageY + "px")
-                .style("display", "block")
-                .html(`<strong>Movie:</strong> ${d.title}<br>
-                    <strong> Genre:</strong> ${d.genre}<br>
-                    <strong>Rating: </strong>${d.rating}<br>
-                   <strong>Release Year:</strong> ${d.releaseYear}`);
-            tooltipVisible = true; // Set tooltip as visibl
-        }
+        tooltip
+            .style("left", event.pageX + "px")
+            .style("top", event.pageY + "px")
+            .style("display", "block")
+            .html(`<strong>Movie:</strong> ${d.title}<br>
+                        <strong>Genre:</strong> ${d.genre}<br>
+                        <strong>Rating: </strong>${d.rating}<br>
+                       <strong>Release Year:</strong> ${d.releaseYear}`);
     }
 
     function handleScatterPlotMouseout(event, d) {
-        d3.select(event.currentTarget)
-            .interrupt()
+        d3.select(this)
             .transition()
-            .attr("r", 5);
+            .attr("r", 7)
+            .attr("fill", 'steelblue');
 
-        setTimeout(() => {
-            tooltip.style("display", "none");
-            tooltipVisible = false; // Set tooltip as not visible
-        }, 300);
+        tooltip.style("display", "none");
+
     }
 }

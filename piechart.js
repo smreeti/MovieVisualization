@@ -25,7 +25,7 @@ const createPieChart = (data) => {
 
   const arc = d3.arc().innerRadius(0).outerRadius(pieRadius);
 
-  const paths = svgPie
+  svgPie
     .selectAll("path")
     .data(pie(groupedGenresData))
     .enter()
@@ -78,24 +78,15 @@ const createPieChart = (data) => {
     .style("margin-top", "10px")
     .text("Fig: Pie chart showing the distribution of movie genres");
 
-  let selectedPath = null; // Store the selected path
-
   function handlePieMouseover(event, d) {
     const genreCount = d.data[1].length;
     const percentage = ((genreCount / data.length) * 100).toFixed(2);
-
-    if (selectedPath) {
-      paths.transition().duration(200).attr("opacity", 0.5); // Reset opacity of all slices
-    }
 
     // Highlight the selected arc
     d3.select(event.currentTarget)
       .transition()
       .duration(200)
-      .attr("d", d3.arc().innerRadius(0).outerRadius(pieRadius * 1.1))
-      .attr("opacity", 1);
-
-    selectedPath = d3.select(event.currentTarget);
+      .attr("d", d3.arc().innerRadius(0).outerRadius(pieRadius * 1.1));
 
     // Add tooltip label with transition
     svgPie
@@ -107,14 +98,11 @@ const createPieChart = (data) => {
       .attr("fill", "white")
       .attr("transform", `translate(${arc.centroid(d)})`)
       .text(`${d.data[0]}: ${percentage}%`)
-      .style("opacity", 0)
       .transition()
-      .duration(200)
-      .style("opacity", 1);
+      .duration(200);
   }
 
   function handlePieMouseout(event, d) {
-    selectedPath = null;
     // Revert the arc to its original size
     d3.select(event.currentTarget)
       .transition()
@@ -126,7 +114,6 @@ const createPieChart = (data) => {
       .selectAll(".pieDataLabel")
       .transition()
       .duration(200)
-      .style("opacity", 0)
       .remove();
   }
 };
