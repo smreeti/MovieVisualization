@@ -1,10 +1,21 @@
 const createBubbleChart = (data) => {
     d3.select("#bubblechart").selectAll("*").remove();
 
-    const diameter = 700;
+    const diameter = 640;
     const svg = d3.select("#bubblechart").append("svg")
         .attr("width", diameter)
         .attr("height", diameter);
+
+    const figureCaption = "Figure: Bubble Chart displaying movies and their ratings.";
+
+    svg.append("text")
+        .attr("x", diameter / 2)
+        .attr("y", diameter -40)
+        .attr("text-anchor", "middle")
+        .attr("font-size", "12px")
+        .attr("font-weight", "bold")
+        .attr("fill", "black")
+        .text(figureCaption);
 
     const bubble = d3.pack(data)
         .size([diameter, diameter])

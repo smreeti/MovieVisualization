@@ -72,10 +72,13 @@ body {
     margin-top: 25px !important;
 }
 
-.pieChart-container, .scatterPlot-container {
+.pieChart-container,
+.scatterPlot-container,
+.dendrogram-container,
+.bubblechart-container {
     margin: auto;
     border: 1px solid #e3e3e3;
-    width: 50%;
+    width: fit-content;
 }
 
 #pieChartPercentage {

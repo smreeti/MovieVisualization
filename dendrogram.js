@@ -1,7 +1,7 @@
 const createDendrogram = (data) => {
   const width = 800;
-  const height = 500;
-  const margin = { top: 40, right: 30, bottom: 100, left: 80 };
+  const height = 480;
+  const margin = { top: 25, right: 80, bottom: 25, left: 50 };
 
   const svg = d3.select("#dendrogram")
     .append("svg")
@@ -63,7 +63,7 @@ const createDendrogram = (data) => {
       .attr("dy", "0.31em")
       .attr("x", d.children ? -10 : 10)
       .attr("text-anchor", d.children ? "end" : "start")
-      .style("font-size", "10px")
+      .style("font-size", "14px")
       .text(d.data.title)
       .style("fill", "black");
 
@@ -72,7 +72,7 @@ const createDendrogram = (data) => {
         .attr("dy", "1.5em")
         .attr("x", d.children ? -10 : 10)
         .attr("text-anchor", d.children ? "end" : "start")
-        .style("font-size", "10px")
+        .style("font-size", "12px")
         .text("Rating: " + d.data.rating)
         .style("fill", "green");
     } else if (!d.children && d.parent && d.parent.data.rating !== undefined) {
@@ -80,10 +80,14 @@ const createDendrogram = (data) => {
         .attr("dy", "1.5em")
         .attr("x", -10)
         .attr("text-anchor", "end")
-        .style("font-size", "10px")
+        .style("font-size", "12px")
         .text("Rating: " + d.parent.data.rating)
         .style("fill", "green");
     }
+
+    node
+      .on("mouseover", (event, d) => handleMouseOver(event, d))
+      .on("mouseout", handleMouseOut)
   });
 
   svg.append("text")
@@ -93,6 +97,13 @@ const createDendrogram = (data) => {
     .attr("font-size", "12px")
     .attr("font-weight", "bold")
     .attr("fill", "black")
-    .text("Figure: Dendrogram Chart displaying the movies and its ratings.");
+    .text("Fig: Dendrogram Chart displaying the movies and its ratings.");
 
+  function handleMouseOver(event, d) {
+    d3.select(event.currentTarget).select("circle").style("stroke", "orange");
+  }
+
+  function handleMouseOut(event, d) {
+    d3.select(event.currentTarget).select("circle").style("stroke", "none");
+  }
 }
