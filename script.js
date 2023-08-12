@@ -72,7 +72,13 @@ function showChart(chartType) {
     }
   });
 }
-
+function setActive(link) {
+  const links = document.querySelectorAll("#navigation a");
+  links.forEach((item) => {
+    item.classList.remove("active");
+  });
+  link.classList.add("active");
+}
 // to initially load pie chart by default
 window.addEventListener('load', () => {
   showChart('pieChartDiv');
