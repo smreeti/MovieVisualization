@@ -5,10 +5,11 @@ const createScatterPlot = (data) => {
         top: 30,
         right: 30,
         bottom: 70,
-        left: 60
+        left: 120
     };
     const scatterPlotInnerWidth = scatterWidth - scatterPlotMargin.left - scatterPlotMargin.right;
     const scatterPlotInnerHeight = scatterHeight - scatterPlotMargin.top - scatterPlotMargin.bottom;
+    let tooltipVisible = false;
 
     const svgScatterPlot = d3.select("#scatterPlot")
         .append("svg")
@@ -21,9 +22,10 @@ const createScatterPlot = (data) => {
         .domain(d3.extent(data, d => d.releaseYear))
         .range([0, scatterPlotInnerWidth]);
 
-    const yScaleScatterPlot = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.rating)])
-        .range([scatterPlotInnerHeight, 0]);
+    const yScaleScatterPlot = d3.scaleBand()
+        .domain(data.map(d => d.genre))
+        .range([scatterPlotInnerHeight, 0])
+        .padding(0.1);
 
     const xAxisScatter = d3.axisBottom(xScaleScatterPlot).ticks(10);
     const yAxisScatter = d3.axisLeft(yScaleScatterPlot);
@@ -42,15 +44,17 @@ const createScatterPlot = (data) => {
         .enter()
         .append("circle")
         .attr("cx", d => xScaleScatterPlot(d.releaseYear))
-        .attr("cy", d => yScaleScatterPlot(d.rating))
-        .attr("r", 5)
+        .attr("cy", d => yScaleScatterPlot(d.genre) + yScaleScatterPlot.bandwidth() / 2)
+        .attr("r", 6)
         .attr("fill", "steelblue")
         .style("cursor", "pointer")
         .on("mouseover", handleScatterPlotMouseover)
         .on("mouseout", handleScatterPlotMouseout)
         .style("opacity", 0)
         .transition()
-        .duration(1000)
+        .duration(800)
+        .style("opacity", 1)
+        .delay((d, i) => i * 100)
         .style("opacity", 1);
 
     svgScatterPlot.append("text")
@@ -66,7 +70,7 @@ const createScatterPlot = (data) => {
         .attr("x", -scatterPlotInnerHeight / 2)
         .attr("y", -scatterPlotMargin.left + 15)
         .attr("text-anchor", "middle")
-        .text("Rating");
+        .text("Genre");
 
     svgScatterPlot
         .append("text")
@@ -75,21 +79,38 @@ const createScatterPlot = (data) => {
         .attr("text-anchor", "middle")
         .style("font-size", "14px")
         .style("font-weight", "bold")
-        .text("Fig: Scatter Chart showing the ratings of movies by Release Year");
+        .text("Fig: Scatter Chart showing the genres of movies by Release Year");
 
     const tooltip = d3.select("body").append("div")
         .attr("id", "tooltip");
 
     function handleScatterPlotMouseover(event, d) {
-        tooltip
-            .style("left", event.pageX + "px")
-            .style("top", event.pageY + "px")
-            .style("display", "block")
-            .html(`<strong>${d.title}</strong>
-            <br>Genre: ${d.genre}<br>Rating: ${d.rating}<br>Release Year: ${d.releaseYear}`);
+        d3.select(event.currentTarget)
+            .transition()
+            .attr("r", 8);
+
+        if (!tooltipVisible) {
+            tooltip
+                .style("left", event.pageX + "px")
+                .style("top", event.pageY + "px")
+                .style("display", "block")
+                .html(`<strong>Movie:</strong> ${d.title}<br>
+                    <strong> Genre:</strong> ${d.genre}<br>
+                    <strong>Rating: </strong>${d.rating}<br>
+                   <strong>Release Year:</strong> ${d.releaseYear}`);
+            tooltipVisible = true; // Set tooltip as visibl
+        }
     }
 
     function handleScatterPlotMouseout(event, d) {
-        tooltip.style("display", "none");
+        d3.select(event.currentTarget)
+            .interrupt()
+            .transition()
+            .attr("r", 5);
+
+        setTimeout(() => {
+            tooltip.style("display", "none");
+            tooltipVisible = false; // Set tooltip as not visible
+        }, 300);
     }
 }
