@@ -199,6 +199,11 @@ body {
     fill: white;
 }
 
+.selectedPie{
+    fill: black;
+    font-weight: bold;
+}
+
 .pie-path:hover {
     transition: box-shadow 0.3s;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);

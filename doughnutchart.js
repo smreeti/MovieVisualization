@@ -30,7 +30,8 @@ function createDoughnutChart(data) {
         .data(pie(uniqueGenres))
         .enter()
         .append("g")
-        .attr("class", "arc");
+        .attr("class", "arc")
+        .on("click", handleArcClick);
 
     arcs.append("path")
         .attr("d", arc)
@@ -66,7 +67,8 @@ function createDoughnutChart(data) {
         .enter()
         .append("g")
         .attr("class", "legend")
-        .attr("transform", (d, i) => `translate(${width - 100},${i * 20 + 20})`);
+        .attr("transform", (d, i) => `translate(${width - 100},${i * 20 + 20})`)
+        .on("click", handleLegendClick);
 
     legend.append("rect")
         .attr("width", 18)
@@ -88,4 +90,36 @@ function createDoughnutChart(data) {
         .attr("font-weight", "bold")
         .attr("fill", "black")
         .text("Figure: Doughnut Chart displaying the ratings of movies by genre percentages.");
+
+    function handleArcClick(event, d) {
+        const isSelected = d3.select(this).classed("selected");
+
+        arcs.classed("selectedPie", false);
+        legend.style("opacity", 1);
+
+        if (!isSelected) {
+            d3.select(this).classed("selectedPie", true);
+            legend.style("opacity", (legendData) => legendData === d.data ? 1 : 0.5)
+            legend.style("font-weight", "bold");
+        }
+    }
+
+    function handleLegendClick(event, d) {
+        const isSelected = d3.select(this).classed("selected");
+
+        legend.classed("selectedPie", false);
+        arcs.style("opacity", 0.5);
+        arcs.classed("selectedPie", false);
+
+        if (!isSelected) {
+            d3.select(this).classed("selectedPie", true);
+            const selectedArc = arcs.filter((arcData) => arcData.data === d);
+            selectedArc
+                .style("fill", (arcData) => color(uniqueGenres.indexOf(arcData.data)))
+                .style("opacity", 1)
+                .classed("selectedPie", true);
+        } else {
+            arcs.style("opacity", 1);
+        }
+    }
 }
