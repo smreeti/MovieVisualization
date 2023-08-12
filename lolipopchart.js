@@ -22,8 +22,8 @@ function createLollipopChart(data) {
     .domain([0, d3.max(data, (d) => d.rating)])
     .nice()
     .range([height, 0]);
-    
-    const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+  const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
   svg.selectAll(".line")
     .data(data)
@@ -41,23 +41,23 @@ function createLollipopChart(data) {
     .delay((d, i) => i * 100)
     .attr("y2", (d) => y(d.rating));
 
-    const donutRadius = 10;
-    const donutWidth = 5;
-  
-    svg.selectAll(".donut")
-      .data(data)
-      .enter()
-      .append("circle")
-      .attr("class", "donut")
-      .attr("cx", (d) => x(d.title) + x.bandwidth() / 2)
-      .attr("cy", (d) => y(d.rating))
-      .style("cursor", "pointer")
-      .on("mouseover", handleScatterPlotMouseover)
-      .on("mouseout", handleScatterPlotMouseout)
-      .attr("r", donutRadius)
-      .attr("fill", "white")
-      .attr("stroke", (d, i) => colorScale(i))
-      .attr("stroke-width", donutWidth);
+  const donutRadius = 10;
+  const donutWidth = 5;
+
+  svg.selectAll(".donut")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class", "donut")
+    .attr("cx", (d) => x(d.title) + x.bandwidth() / 2)
+    .attr("cy", (d) => y(d.rating))
+    .style("cursor", "pointer")
+    .on("mouseover", handleScatterPlotMouseover)
+    .on("mouseout", handleScatterPlotMouseout)
+    .attr("r", donutRadius)
+    .attr("fill", "white")
+    .attr("stroke", (d, i) => colorScale(i))
+    .attr("stroke-width", donutWidth);
 
   const xAxis = svg
     .append("g")
@@ -80,7 +80,6 @@ function createLollipopChart(data) {
     .attr("text-anchor", "middle")
     .style("font-size", "12px")
     .style("font-weight", "bold")
-    .style("fill", "#666")
     .text("Fig: Lollipop Chart showing the ratings of movies by title");
 
   svg
@@ -110,19 +109,19 @@ function createLollipopChart(data) {
     .attr("text-anchor", "middle")
     .text("Rating");
 
-    const tooltip = d3.select("body").append("div")
+  const tooltip = d3.select("body").append("div")
     .attr("id", "tooltip");
 
-function handleScatterPlotMouseover(event, d) {
+  function handleScatterPlotMouseover(event, d) {
     tooltip
-        .style("left", event.pageX + "px")
-        .style("top", event.pageY + "px")
-        .style("display", "block")
-        .html(`<strong>${d.title}</strong>
+      .style("left", event.pageX + "px")
+      .style("top", event.pageY + "px")
+      .style("display", "block")
+      .html(`<strong>${d.title}</strong>
         <br>Genre: ${d.genre}<br>Rating: ${d.rating}<br>Release Year: ${d.releaseYear}`);
-}
+  }
 
-function handleScatterPlotMouseout(event, d) {
+  function handleScatterPlotMouseout(event, d) {
     tooltip.style("display", "none");
-}
+  }
 }

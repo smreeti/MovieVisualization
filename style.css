@@ -75,7 +75,9 @@ body {
 .pieChart-container,
 .scatterPlot-container,
 .dendrogram-container,
-.bubblechart-container {
+.bubblechart-container,
+.doughnutChart-container,
+.lolipopchart-container {
     margin: auto;
     border: 1px solid #e3e3e3;
     width: fit-content;
@@ -167,7 +169,6 @@ body {
 }
 
 .lolipopchart-container {
-    width: 100%;
     margin: 0 auto;
 }
 

@@ -1,5 +1,5 @@
 const createPieChart = (data) => {
-  const width = 800;
+  const width = 750;
   const height = 400;
   const pieRadius = Math.min(width, height) / 2;
 
