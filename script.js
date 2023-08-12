@@ -6,7 +6,7 @@ const chartContainers = {
   pieChartDiv: document.getElementById("pieChart"),
   barChartDiv: document.getElementById("barchart"),
   lolipopSVG: document.getElementById("lolipopChart"),
-  dendogramDiv: document.getElementById('dendogram'),
+  dendrogramDiv: document.getElementById('dendrogram'),
   doughnutChartDiv: document.getElementById('doughnutChart'),
   bubblechartSVG: document.getElementById('bubblechart'),
   WordcloudchartSVG: document.getElementById('wordcloudchart')
@@ -58,8 +58,8 @@ function showChart(chartType) {
         createDoughnutChart(data);
         break;
 
-      case 'dendogramDiv':
-        createDendogram(data);
+      case 'dendrogramDiv':
+        createDendrogram(data);
         break;
 
       case 'bubblechartSVG':
