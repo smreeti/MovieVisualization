@@ -17,11 +17,8 @@ function createDoughnutChart(data) {
     const genres = data.map(d => d.genre);
     const uniqueGenres = Array.from(new Set(genres));
 
-    // Shuffle the data randomly
-    const shuffledData = data.sort(() => Math.random() - 0.5);
-
     const pie = d3.pie()
-        .value(d => shuffledData.filter(movie => movie.genre === d).length)
+        .value(d => data.filter(movie => movie.genre === d).length)
         .sort(null);
 
     const arc = d3.arc()
@@ -35,7 +32,7 @@ function createDoughnutChart(data) {
         .append("g")
         .attr("class", "arc");
 
-    // Add the path with initial opacity and grow animation
+    
     arcs.append("path")
         .attr("d", arc)
         .attr("fill", (d, i) => color(i))
@@ -64,9 +61,9 @@ function createDoughnutChart(data) {
         .transition()
         .duration(1000)
         .style("opacity", 1)
-        .text(d => d.data);
+        .text(d => `${d.data} (${((d.endAngle - d.startAngle) / (2 * Math.PI)) * 100}%)`);
 
-    // Add the title below the chart
+    
     svg.append("text")
         .attr("x", width / 2)
         .attr("y", height)
@@ -74,5 +71,5 @@ function createDoughnutChart(data) {
         .attr("font-size", "12px")
         .attr("font-weight", "bold")
         .attr("fill", "black")
-        .text("Figure: Doughnut Chart displaying the ratings of movies by Release year.");
+        .text("Figure: Doughnut Chart displaying the ratings of movies by genre percentages.");
 }
